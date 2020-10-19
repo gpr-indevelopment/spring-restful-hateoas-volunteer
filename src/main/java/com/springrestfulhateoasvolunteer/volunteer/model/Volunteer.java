@@ -1,5 +1,7 @@
 package com.springrestfulhateoasvolunteer.volunteer.model;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.springrestfulhateoasvolunteer.volunteer.filtering.VolunteerFilters;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -14,6 +16,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Past;
 import java.util.Date;
 
+@JsonFilter(VolunteerFilters.PARTIAL_RESPONSE_FILTER)
 @ApiModel(description = "Volunteer")
 @Entity
 @Getter @Setter
