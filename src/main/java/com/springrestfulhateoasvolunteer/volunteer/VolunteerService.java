@@ -12,15 +12,15 @@ import java.util.Objects;
 public class VolunteerService {
 
     @Autowired
-    private VolunteerDao volunteerDao;
+    private VolunteerRepository volunteerRepository;
 
     public List<Volunteer> findAll() {
-        return volunteerDao.findAll();
+        return volunteerRepository.findAll();
     }
 
     public void delete(Long id) {
-        if(volunteerDao.existsById(id)) {
-            volunteerDao.deleteById(id);
+        if(volunteerRepository.existsById(id)) {
+            volunteerRepository.deleteById(id);
         } else {
             throw new VolunteerNotFoundException("A volunteer could not be found for ID " + id);
         }
@@ -28,13 +28,13 @@ public class VolunteerService {
 
     public Volunteer create(Volunteer volunteer) {
         if(Objects.isNull(volunteer.getId())) {
-            return volunteerDao.save(volunteer);
+            return volunteerRepository.save(volunteer);
         } else {
             throw new InvalidVolunteerCreationException("The input volunteer already has an ID.");
         }
     }
 
     public Volunteer findById(Long id) {
-        return volunteerDao.findById(id).orElseThrow(() -> new VolunteerNotFoundException("A volunteer could not be found for ID " + id));
+        return volunteerRepository.findById(id).orElseThrow(() -> new VolunteerNotFoundException("A volunteer could not be found for ID " + id));
     }
 }
